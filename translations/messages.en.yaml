@@ -1,0 +1,25 @@
+header:
+  title: Test Blog
+error:
+  no_post_title: error when trying to search the information of the post
+  no_post_body: An error was received when trying to receive the post request, try again later.
+buttons:
+  return: return
+author:
+  title: 'Author data'
+  name: 'Name'
+  username: 'Username'
+  email: 'Email'
+  address: ' Address'
+  street: 'Street'
+  suite: 'Suite'
+  city: 'City'
+  zipcode: 'Zipcode'
+  geo: 'Geolocation'
+  lat: 'Latitude'
+  long: 'Longitude'
+  phone: 'Phone'
+  website: 'Website'
+  company: 'Company'
+  catchPhrase: 'CatchPhrase'
+  bs: 'BS'

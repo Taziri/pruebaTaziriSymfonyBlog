@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <h5 class="card-title">{{ 'error.no_post_title'|trans }}</h5>
+            <p class="card-text">{{ 'error.no_post_body'|trans }}</p>
+            {% if error %}
+            <p class="card-text">Info: {{ error }}</p>
+            {% endif %}
+            <a href="{{ path('post_index') }}" class="btn btn-primary button-show-post">{{ 'buttons.return'|trans }}</a>
+        </div>
+    </div>
+{% endblock %}

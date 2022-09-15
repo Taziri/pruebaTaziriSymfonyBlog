@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.title }}</p>
+            <h5 class="card-text">{{ 'author.title'|trans }}</h5>
+            <p>{{ 'author.name'|trans }}: {{ author.name }} ({{ author.username }})</p>
+            <p>{{ 'author.email'|trans }}: {{ author.email }}</p>
+            <p>{{ 'author.phone'|trans }}: {{ author.phone }}</p>
+            <p>{{ 'author.website'|trans }}: {{ author.website }}</p>
+            {% if author.address %}
+                <h6>{{ 'author.address'|trans }}</h6>
+                <p>{{ 'author.street'|trans }}: {{ author.address.street }}</p>
+                <p>{{ 'author.suite'|trans }}: {{ author.address.suite }}</p>
+                <p>{{ 'author.city'|trans }}: {{ author.address.city }}</p>
+                <p>{{ 'author.zipcode'|trans }}: {{ author.address.zipcode }}</p>
+                {% if author.address.geo %}
+                    <p>{{ 'author.geo'|trans }}: {{ author.address.geo.lat }} - {{ author.address.geo.lng }}</p>
+                {% endif %}
+            {% endif %}
+            {% if author.address %}
+                <h6>{{ 'author.company'|trans }}: {{ author.company.name }} </h6>
+                <p>{{ 'author.catchPhrase'|trans }}: {{ author.company.catchPhrase }}</p>
+                <p>{{ 'author.bs'|trans }}: {{ author.company.bs }}</p>
+            {% endif %}
+            <a href="{{path('post_index')}}" class="btn btn-primary button-show-post">{{ 'buttons.return'|trans }}</a>
+        </div>
+    </div>
+{% endblock %}
