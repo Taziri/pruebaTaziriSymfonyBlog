@@ -2,13 +2,8 @@
 
 namespace App\Models;
 
-// use App\Repository\FooterRepository;
-// use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/*
- *
- */
 class Geo
 {
     #[Assert\NotNull]

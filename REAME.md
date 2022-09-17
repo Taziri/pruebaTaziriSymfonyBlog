@@ -26,3 +26,8 @@ He decidido generar un pequeño sqlite para hacer una persistencia real, donde p
 - composer install
 - yarn install / npm install
 - yarn build
+- 
+# Componentes instalados:
+- composer install
+- yarn install / npm install
+- yarn build

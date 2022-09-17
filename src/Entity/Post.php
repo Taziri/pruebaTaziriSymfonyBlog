@@ -2,45 +2,21 @@
 
 namespace App\Entity;
 
-// use App\Repository\FooterRepository;
-// use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-/*
- *
- */
-
-use Doctrine\Common\Collections\ArrayCollection;
 
 class Post
 {
 
-    /*
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
     protected ?int $id = null;
 
-    /*
-     * @ORM\Column(type="string", length=255)
-     */
     private ?int $userId;
 
-    /*
-     * ManyToOne
-     */
     private ?Author $author;
 
-    /*
-     * @ORM\Column(type="string", length=255)
-     */
     #[Assert\NotNull]
     #[Assert\Length(min: 2, max: 50)]
     private string $title;
 
-    /*
-     * @ORM\Column(type="string", length=255)
-     */
     #[Assert\NotNull]
     #[Assert\Length(min: 2, max: 250)]
     private string $body;

@@ -18,7 +18,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class ApiPostController extends AbstractController
 {
     #[Route('/api/posts', name: 'api_post_list', methods: ["GET"])]
-    public function index(HttpService $httpService, SerializerService $serializerService): Response
+    public function list(HttpService $httpService, SerializerService $serializerService): Response
     {
         try{
             $postResponse = $httpService->getPostList();
