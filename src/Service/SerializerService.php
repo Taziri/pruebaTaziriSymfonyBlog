@@ -4,9 +4,10 @@ namespace App\Service;
 
 use App\Entity\Author;
 use App\Entity\Post;
+use App\Interface\SerializerServiceInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class SerializerService
+class SerializerService implements SerializerServiceInterface
 {
     private SerializerInterface $serializer;
 

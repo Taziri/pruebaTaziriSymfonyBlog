@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Post;
+use App\Interface\HttpServiceInterface;
+use App\Interface\SerializerServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -17,12 +19,12 @@ const HTTP_METHOD_POST = 'POST';
 const API_URL_BASE_USERS = 'https://jsonplaceholder.typicode.com/users';
 const API_URL_BASE_POSTS = 'https://jsonplaceholder.typicode.com/posts';
 
-class HttpService
+class HttpService implements HttpServiceInterface
 {
     private HttpClientInterface $client;
-    private SerializerService $serializerService;
+    private SerializerServiceInterface $serializerService;
 
-    public function __construct(HttpClientInterface $client, SerializerService $serializerService)
+    public function __construct(HttpClientInterface $client, SerializerServiceInterface $serializerService)
     {
         $this->client = $client;
         $this->serializerService = $serializerService;

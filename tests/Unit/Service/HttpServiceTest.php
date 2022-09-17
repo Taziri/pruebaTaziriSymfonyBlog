@@ -3,6 +3,7 @@
 namespace App\Tests\Unit\Service;
 
 use App\Entity\Post;
+use App\Interface\HttpServiceInterface;
 use App\Service\HttpService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,55 +18,58 @@ class HttpServiceTest extends KernelTestCase
 
         self::bootKernel();
         $container = static::getContainer();
-        $this->httpService = $container->get(HttpService::class);
+        $this->httpService = $container->get(HttpServiceInterface::class);
     }
 
-    public function testSerializerServiceDeserializePost(): void{
+    public function testSerializerServiceDeserializePost(): void
+    {
         /** @var HttpService $httpService  */
         $httpService = $this->httpService;
         $response = $httpService->getPostList();
 
         self::assertTrue($response->getStatusCode() == Response::HTTP_OK);
         $postsListString = $response->getContent();
-        self::assertStringStartsWith('[',$postsListString);
-        self::assertStringEndsWith(']',$postsListString);
+        self::assertStringStartsWith('[', $postsListString);
+        self::assertStringEndsWith(']', $postsListString);
 
-        self::assertStringContainsString('id": 1',$postsListString);
-        self::assertStringContainsString('"title":',$postsListString);
-        self::assertStringContainsString('"body":',$postsListString);
+        self::assertStringContainsString('id": 1', $postsListString);
+        self::assertStringContainsString('"title":', $postsListString);
+        self::assertStringContainsString('"body":', $postsListString);
     }
 
-    public function testSerializerServiceUnSerializePostList(): void{
-        /** @var HttpService $httpService  */
+    public function testSerializerServiceUnSerializePostList(): void
+    {
+        /** @var HttpServiceInterface $httpService  */
         $httpService = $this->httpService;
         $response = $httpService->getPostElement(1);
 
         self::assertTrue($response->getStatusCode() == Response::HTTP_OK);
         $post = $response->getContent();
-        self::assertStringStartsWith('{',$post);
-        self::assertStringEndsWith('}',$post);
+        self::assertStringStartsWith('{', $post);
+        self::assertStringEndsWith('}', $post);
 
-        self::assertStringContainsString('id": 1',$post);
-        self::assertStringContainsString('"title":',$post);
-        self::assertStringContainsString('"body":',$post);
+        self::assertStringContainsString('id": 1', $post);
+        self::assertStringContainsString('"title":', $post);
+        self::assertStringContainsString('"body":', $post);
     }
 
-    public function testDeserializeAuthor(): void{
-        /** @var HttpService $httpService  */
+    public function testDeserializeAuthor(): void
+    {
+        /** @var HttpServiceInterface $httpService  */
         $httpService = $this->httpService;
         $response = $httpService->getAuthor(1);
 
         self::assertTrue($response->getStatusCode() == Response::HTTP_OK);
         $content = $response->getContent();
         self::assertIsString($content);
-        self::assertStringContainsString('id',$content);
-        self::assertStringContainsString('company',$content);
-        self::assertStringContainsString('Leanne Graham',$content);
-
+        self::assertStringContainsString('id', $content);
+        self::assertStringContainsString('company', $content);
+        self::assertStringContainsString('Leanne Graham', $content);
     }
 
-    public function testUpdateAuthors(): void{
-        /** @var HttpService $httpService  */
+    public function testUpdateAuthors(): void
+    {
+        /** @var HttpServiceInterface $httpService  */
         $httpService = $this->httpService;
         $postFullList = $httpService->updateAuthors($this->getArrayPost());
 
@@ -74,12 +78,13 @@ class HttpServiceTest extends KernelTestCase
         self::assertIsObject($postFull);
         self::assertIsObject($postFull->getAuthor());
 
-        self::assertStringContainsString('sunt aut facere',$postFull->getTitle());
+        self::assertStringContainsString('sunt aut facere', $postFull->getTitle());
         self::assertTrue($postFull->getAuthor()->getId() == $postFull->getUserId());
     }
 
     /** @return Post[] */
-    private function getArrayPost(): array {
+    private function getArrayPost(): array
+    {
         $post = new Post();
         $post->setId(1);
         $post->setUserId(1);
@@ -87,5 +92,4 @@ class HttpServiceTest extends KernelTestCase
         $post->setBody("quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto");
         return [$post];
     }
-
 }

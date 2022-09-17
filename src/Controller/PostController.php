@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Service\HttpService;
-use App\Service\SerializerService;
+use App\Interface\HttpServiceInterface;
+use App\Interface\SerializerServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class PostController extends AbstractController
 {
     #[Route('/', name: 'post_index', methods: ['GET'])]
-    public function index(HttpService $httpService, SerializerService $serializerService): Response
+    public function index(HttpServiceInterface $httpService, SerializerServiceInterface $serializerService): Response
     {
         try {
             $response = $httpService->getPostList();
@@ -36,7 +36,7 @@ class PostController extends AbstractController
     }
 
     #[Route('/show/{id}', name: 'post_show', methods: ['GET'])]
-    public function show(int $id, HttpService $httpService, SerializerService $serializerService): Response
+    public function show(int $id, HttpServiceInterface $httpService, SerializerServiceInterface $serializerService): Response
     {
         try {
             $postJson = $httpService->getPostElement($id);
