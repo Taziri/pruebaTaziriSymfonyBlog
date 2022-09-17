@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Symfony\Component\Validator\Constraints as Assert;
 
 class Company
@@ -26,36 +27,23 @@ class Company
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCatchPhrase(): ?string
     {
         return $this->catchPhrase;
     }
 
-    /**
-     * @param string|null $catchPhrase
-     */
     public function setCatchPhrase(?string $catchPhrase): void
     {
         $this->catchPhrase = $catchPhrase;
     }
 
-    /**
-     * @return string|null
-     */
     public function getBs(): ?string
     {
         return $this->bs;
     }
 
-    /**
-     * @param string|null $bs
-     */
     public function setBs(?string $bs): void
     {
         $this->bs = $bs;
     }
-
 }

@@ -32,7 +32,8 @@ class Author
 
     private ?Company $company;
 
-    public function __constructor(): void{
+    public function __constructor(): void
+    {
         $this->address = new Address();
         $this->company = new Company();
     }
@@ -96,7 +97,7 @@ class Author
         return $this->website;
     }
 
-    function setWebsite(?string $website): void
+    public function setWebsite(?string $website): void
     {
         $this->website = $website;
     }
@@ -120,5 +121,4 @@ class Author
     {
         $this->company = $company;
     }
-
 }

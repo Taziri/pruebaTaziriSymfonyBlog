@@ -22,7 +22,8 @@ class HttpService
     private HttpClientInterface $client;
     private SerializerService $serializerService;
 
-    public function __construct(HttpClientInterface $client, SerializerService $serializerService){
+    public function __construct(HttpClientInterface $client, SerializerService $serializerService)
+    {
         $this->client = $client;
         $this->serializerService = $serializerService;
     }
@@ -30,7 +31,7 @@ class HttpService
     /**
      * @throws TransportExceptionInterface
      */
-    function getPostList(): ResponseInterface
+    public function getPostList(): ResponseInterface
     {
         return $this->client->request(
             HTTP_METHOD_GET,
@@ -41,7 +42,7 @@ class HttpService
     /**
      * @throws TransportExceptionInterface
      */
-    function getPostElement(int $id): ResponseInterface
+    public function getPostElement(int $id): ResponseInterface
     {
         return $this->client->request(
             HTTP_METHOD_GET,
@@ -52,7 +53,7 @@ class HttpService
     /**
      * @throws TransportExceptionInterface
      */
-    function getAuthor(int $id): ResponseInterface
+    public function getAuthor(int $id): ResponseInterface
     {
         return $this->client->request(
             HTTP_METHOD_GET,
@@ -62,7 +63,9 @@ class HttpService
 
     /**
      * @param Post[] $posts
+     *
      * @return Post[]
+     *
      * @throws TransportExceptionInterface
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
@@ -70,13 +73,14 @@ class HttpService
      */
     public function updateAuthors(array $posts): array
     {
-        foreach ($posts as $post){
+        foreach ($posts as $post) {
             $authorJson = $this->getAuthor($post->getUserId());
-            if($authorJson->getStatusCode() == Response::HTTP_OK) {
+            if (Response::HTTP_OK == $authorJson->getStatusCode()) {
                 $author = $this->serializerService->deserializeAuthor($authorJson->getContent());
                 $post->setAuthor($author);
             }
         }
+
         return $posts;
     }
 }

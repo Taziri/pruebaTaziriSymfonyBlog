@@ -6,7 +6,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class Post
 {
-
     protected ?int $id = null;
 
     private ?int $userId;
@@ -29,6 +28,7 @@ class Post
     public function setId(?int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -44,41 +44,26 @@ class Post
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     */
     public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
     public function getBody(): string
     {
         return $this->body;
     }
 
-    /**
-     * @param string $body
-     */
     public function setBody(string $body): void
     {
         $this->body = $body;
     }
 
-    /**
-     * @return Author|null
-     */
     public function getAuthor(): ?Author
     {
         return $this->author;
@@ -88,5 +73,4 @@ class Post
     {
         $this->author = $author;
     }
-
 }

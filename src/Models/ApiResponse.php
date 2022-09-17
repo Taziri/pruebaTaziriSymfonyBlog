@@ -17,59 +17,41 @@ class ApiResponse
     public function __construct(mixed $data = null, ?string $error = null)
     {
         $this->setDate(new DateTime());
-        if($data){
+        if ($data) {
             $this->setStatus(true);
             $this->setData($data);
         }
-        if($error){
+        if ($error) {
             $this->setStatus(false);
             $this->setError($error);
         }
     }
 
-    /**
-     * @return \DateTimeInterface
-     */
     public function getDate(): \DateTimeInterface
     {
         return $this->date;
     }
 
-    /**
-     * @param \DateTimeInterface $date
-     */
     public function setDate(\DateTimeInterface $date): void
     {
         $this->date = $date;
     }
 
-    /**
-     * @return string|null
-     */
     public function getError(): ?string
     {
         return $this->error;
     }
 
-    /**
-     * @param string|null $error
-     */
     public function setError(?string $error): void
     {
         $this->error = $error;
     }
 
-    /**
-     * @return bool
-     */
     public function isStatus(): bool
     {
         return $this->status;
     }
 
-    /**
-     * @param bool $status
-     */
     public function setStatus(bool $status): void
     {
         $this->status = $status;

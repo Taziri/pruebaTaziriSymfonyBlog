@@ -9,36 +9,39 @@ use Symfony\Component\Serializer\SerializerInterface;
 class SerializerService
 {
     private SerializerInterface $serializer;
-    public function __construct(SerializerInterface $serializer){
+
+    public function __construct(SerializerInterface $serializer)
+    {
         $this->serializer = $serializer;
     }
 
     /**
-     * @param string $postJson
      * @return Post[]
+     *
      * @throws \Exception
      */
-    function unSerializePostList(string $postJson): array
+    public function unSerializePostList(string $postJson): array
     {
         $postListArray = json_decode($postJson);
         $posts = [];
-        foreach($postListArray as $postArray){
+        foreach ($postListArray as $postArray) {
             $stringPost = json_encode($postArray);
-            if($stringPost) {
+            if ($stringPost) {
                 $posts[] = $this->deserializePost($stringPost);
-            }else{
+            } else {
                 throw new \Exception('Error post format');
             }
         }
+
         return $posts;
     }
 
-    function deserializePost(string $postJson): Post
+    public function deserializePost(string $postJson): Post
     {
         return $this->serializer->deserialize($postJson, Post::class, 'json');
     }
 
-    function deserializeAuthor(string $postJson): Author
+    public function deserializeAuthor(string $postJson): Author
     {
         return $this->serializer->deserialize($postJson, Author::class, 'json');
     }
