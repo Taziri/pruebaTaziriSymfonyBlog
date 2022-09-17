@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Models\ApiResponse;
 use App\Service\HttpService;
 use App\Service\SerializerService;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +17,18 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+use OpenApi\Attributes as OA;
+
 class ApiPostController extends AbstractController
 {
+    #[OA\Response(
+        response: 200,
+        description: 'Returns Post list',
+        content: new OA\JsonContent(
+            type: 'array',
+            items: new OA\Items(ref: new Model(type: Post::class))
+        )
+    )]
     #[Route('/api/posts', name: 'api_post_list', methods: ['GET'])]
     public function list(HttpService $httpService, SerializerService $serializerService): Response
     {
@@ -40,6 +52,18 @@ class ApiPostController extends AbstractController
         return $this->json(new ApiResponse(null, $error->getTraceAsString()));
     }
 
+    #[OA\Response(
+        response: 200,
+        description: 'Returns Post added',
+        content:  new OA\JsonContent(
+            ref: new Model(type: Post::class)
+        )
+    )]
+    #[OA\RequestBody(
+        description: 'Post json to save',
+        required: true,
+        content: new OA\JsonContent(ref: new Model(type: Post::class))
+    )]
     #[Route('/api/post', name: 'api_post_save', methods: ['POST'])]
     public function save(Request $request, SerializerService $serializerService, ValidatorInterface $validator): Response
     {
