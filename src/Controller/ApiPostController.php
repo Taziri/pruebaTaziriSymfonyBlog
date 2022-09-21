@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Interface\HttpServiceInterface;
+use App\Interface\SerializerServiceInterface;
 use App\Models\ApiResponse;
-use App\Service\HttpService;
-use App\Service\SerializerService;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +30,7 @@ class ApiPostController extends AbstractController
         )
     )]
     #[Route('/api/posts', name: 'api_post_list', methods: ['GET'])]
-    public function list(HttpService $httpService, SerializerService $serializerService): Response
+    public function list(HttpServiceInterface $httpService, SerializerServiceInterface $serializerService): Response
     {
         try {
             $postResponse = $httpService->getPostList();
@@ -65,7 +65,7 @@ class ApiPostController extends AbstractController
         content: new OA\JsonContent(ref: new Model(type: Post::class))
     )]
     #[Route('/api/post', name: 'api_post_save', methods: ['POST'])]
-    public function save(Request $request, SerializerService $serializerService, ValidatorInterface $validator): Response
+    public function save(Request $request, SerializerServiceInterface $serializerService, ValidatorInterface $validator): Response
     {
         try {
             $contentString = $request->getContent();
